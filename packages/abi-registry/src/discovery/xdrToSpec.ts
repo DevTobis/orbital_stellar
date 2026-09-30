@@ -106,9 +106,12 @@ export function mapTypeDef(type: xdr.ScSpecTypeDef): TypeSpec {
     // encoded regardless of which #[contracterror] enum is named.
     case "scSpecTypeError":
       return "error";
-    // scSpecTypeVal (generic "any" ScVal) has no faithful representation in
-    // our closed PrimitiveType set.
+    // The generic value slot (`scvVal` on the wire): an argument or return of
+    // any ScVal type. Real and common - DeFindex strategies take `Vec<Val>`
+    // init args. Maps onto PrimitiveType's "val" like "error" does for the
+    // generic error slot.
     case "scSpecTypeVal":
+      return "val";
     default:
       throw new UnsupportedSpecTypeError(name);
   }
